@@ -27,7 +27,7 @@ export default function App({ Component, pageProps }) {
       setArtPiecesInfo(
         artPiecesInfo.map((pieceInfo) =>
           pieceInfo.slug === slug
-            ? { slug, isFavorite: !pieceInfo.isFavorite }
+            ? { ...pieceInfo, isFavorite: !pieceInfo.isFavorite }
             : pieceInfo
         )
       );
