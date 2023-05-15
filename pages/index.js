@@ -24,11 +24,7 @@ function randomIndex(arrayLength) {
   return Math.floor(Math.random() * (arrayLength - 1));
 }
 
-export default function SpotlightPage({
-  pieces,
-  artPiecesInfo,
-  onToggleFavorite,
-}) {
+export default function SpotlightPage({ pieces }) {
   const [index, setIndex] = useState(null);
 
   useEffect(() => {
@@ -51,11 +47,7 @@ export default function SpotlightPage({
           <Spotlight
             image={spotlightPiece.imageSource}
             artist={spotlightPiece.artist}
-            isFavorite={
-              artPiecesInfo.find((piece) => piece.slug === spotlightPiece.slug)
-                ?.isFavorite
-            }
-            onToggleFavorite={() => onToggleFavorite(spotlightPiece.slug)}
+            slug={spotlightPiece.slug}
           />
           <ButtonContainer>
             <Button

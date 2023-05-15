@@ -2,6 +2,8 @@ import GlobalStyle from "../styles";
 import useSWR from "swr";
 import Layout from "../components/Layout.js";
 import useLocalStorageState from "use-local-storage-state";
+import store from "./store";
+import { Provider } from "react-redux";
 
 const fetcher = async (...args) => {
   const response = await fetch(...args);
@@ -20,21 +22,6 @@ export default function App({ Component, pageProps }) {
     "art-pieces-info",
     { defaultValue: [] }
   );
-
-  function handleToggleFavorite(slug) {
-    setArtPiecesInfo((prev) => {
-      const artPiece = prev.find((piece) => piece.slug === slug);
-      if (artPiece) {
-        return prev.map((pieceInfo) =>
-          pieceInfo.slug === slug
-            ? { ...pieceInfo, isFavorite: !pieceInfo.isFavorite }
-            : pieceInfo
-        );
-      } else {
-        return [...prev, { slug, isFavorite: true }];
-      }
-    });
-  }
 
   function addComment(slug, newComment) {
     setArtPiecesInfo((prev) => {
@@ -56,15 +43,16 @@ export default function App({ Component, pageProps }) {
   }
 
   return (
-    <Layout>
-      <GlobalStyle />
-      <Component
-        {...pageProps}
-        pieces={isLoading || error ? [] : data}
-        artPiecesInfo={artPiecesInfo}
-        onToggleFavorite={handleToggleFavorite}
-        addComment={addComment}
-      />
-    </Layout>
+    <Provider store={store}>
+      <Layout>
+        <GlobalStyle />
+        <Component
+          {...pageProps}
+          pieces={isLoading || error ? [] : data}
+          artPiecesInfo={artPiecesInfo}
+          addComment={addComment}
+        />
+      </Layout>
+    </Provider>
   );
 }
