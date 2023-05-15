@@ -1,13 +1,10 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import ArtPiecesDetails from "../../../components/ArtPiecesDetails";
+import { useSelector } from "react-redux";
 
-export default function ArtPieceDetailsPage({
-  pieces,
-  artPiecesInfo,
-  onToggleFavorite,
-  addComment,
-}) {
+export default function ArtPieceDetailsPage({ pieces }) {
+  const artPiecesInfo = useSelector((state) => state.artPiecesInfo.artPieces);
   const [selectedArtPiece, setSelectedArtPiece] = useState(null);
   const router = useRouter();
   const { slug } = router.query;
@@ -42,14 +39,9 @@ export default function ArtPieceDetailsPage({
       artist={selectedArtPiece.artist}
       year={selectedArtPiece.year}
       genre={selectedArtPiece.genre}
-      isFavorite={
-        artPiecesInfo.find((piece) => piece.slug === selectedArtPiece.slug)
-          ?.isFavorite
-      }
-      onToggleFavorite={() => onToggleFavorite(selectedArtPiece.slug)}
+      slug={selectedArtPiece.slug}
       colors={selectedArtPiece.colors}
       comments={selectedArtPieceComments}
-      addComment={(newComment) => addComment(selectedArtPiece.slug, newComment)}
     />
   );
 }

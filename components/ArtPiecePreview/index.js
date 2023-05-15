@@ -50,22 +50,11 @@ const ScreenReaderOnly = styled.span`
   border-width: 0;
 `;
 
-export default function ArtPiecePreview({
-  title,
-  image,
-  artist,
-  slug,
-  isFavorite,
-  onToggleFavorite,
-}) {
+export default function ArtPiecePreview({ title, image, artist, slug }) {
   return (
     <Figure>
       <ImageContainer>
-        <FavoriteButton
-          isFavorite={isFavorite}
-          onToggleFavorite={onToggleFavorite}
-          positionAbsolute={true}
-        />
+        <FavoriteButton slug={slug} positionAbsolute={true} />
         <StyledImage
           src={image}
           fill

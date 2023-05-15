@@ -1,8 +1,6 @@
 import { StyledImage } from "../StyledImage.js";
 import styled from "styled-components";
 import FavoriteButton from "../FavoriteButton/index.js";
-import { toggleFavorite } from "@/lib/artPiecesInfoSlice.js";
-import { useSelector, useDispatch } from "react-redux";
 
 const ImageContainer = styled.div`
   position: relative;
@@ -17,21 +15,10 @@ const Wrapper = styled.div`
 `;
 
 export default function Spotlight({ image, artist, slug }) {
-  const artPiecesInfo = useSelector((state) => state.artPiecesInfo.artPieces);
-  const dispatch = useDispatch();
-
-  const isFavorite = artPiecesInfo.find(
-    (piece) => piece.slug === slug
-  )?.isFavorite;
-
   return (
     <Wrapper>
       <ImageContainer>
-        <FavoriteButton
-          isFavorite={isFavorite}
-          onToggleFavorite={() => dispatch(toggleFavorite(slug))}
-          positionAbsolute={true}
-        />
+        <FavoriteButton slug={slug} positionAbsolute={true} />
         <StyledImage
           src={image}
           fill

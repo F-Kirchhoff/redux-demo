@@ -54,10 +54,8 @@ export default function ArtPiecesDetails({
   artist,
   year,
   genre,
-  isFavorite,
-  onToggleFavorite,
+  slug,
   colors,
-  addComment,
   comments,
   onBack,
 }) {
@@ -67,10 +65,7 @@ export default function ArtPiecesDetails({
         <BackButton type="button" onClick={onBack} aria-label="navigate back">
           ←
         </BackButton>
-        <FavoriteButton
-          isFavorite={isFavorite}
-          onToggleFavorite={onToggleFavorite}
-        />
+        <FavoriteButton slug={slug} />
       </ActionContainer>
       <h2>{title}</h2>
       <ImageContainer>
@@ -95,7 +90,7 @@ export default function ArtPiecesDetails({
         <li>{genre}</li>
       </List>
       {comments && <Comments comments={comments} />}
-      <CommentForm addComment={addComment} />
+      <CommentForm slug={slug} />
     </Wrapper>
   );
 }

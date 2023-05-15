@@ -17,7 +17,7 @@ const List = styled.ul`
   }
 `;
 
-export default function ArtPieces({ pieces, artPiecesInfo, onToggleFavorite }) {
+export default function ArtPieces({ pieces }) {
   return (
     <List>
       {pieces?.map((piece) => (
@@ -27,11 +27,6 @@ export default function ArtPieces({ pieces, artPiecesInfo, onToggleFavorite }) {
             image={piece.imageSource}
             artist={piece.artist}
             slug={piece.slug}
-            isFavorite={
-              artPiecesInfo?.find((artPiece) => artPiece.slug === piece.slug)
-                ?.isFavorite
-            }
-            onToggleFavorite={() => onToggleFavorite(piece.slug)}
           />
         </li>
       ))}

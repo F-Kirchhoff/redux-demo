@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { addComment } from "@/lib/artPiecesInfoSlice.js";
+import { useDispatch } from "react-redux";
 
 const Form = styled.form`
   display: grid;
@@ -25,11 +27,13 @@ const Button = styled.button`
   font-weight: bold;
 `;
 
-export default function CommentForm({ addComment }) {
+export default function CommentForm({ slug }) {
+  const dispatch = useDispatch();
+
   function handleSubmit(event) {
     event.preventDefault();
     const { comment } = event.target.elements;
-    addComment(comment.value);
+    dispatch(addComment({ slug, newComment: comment.value }));
     event.target.reset();
   }
   return (
